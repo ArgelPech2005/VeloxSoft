@@ -29,8 +29,11 @@
         private void InitializeComponent()
         {
             pnlFondo = new Panel();
-            tableLayoutPanel1 = new TableLayoutPanel();
+            Inventario = new TableLayoutPanel();
             pnlDetalles = new Panel();
+            panel2 = new Panel();
+            flowLayoutPanel1 = new FlowLayoutPanel();
+            pnlTabla = new Panel();
             pnlPV = new Panel();
             textPV = new TextBox();
             lblVenta = new Label();
@@ -51,46 +54,75 @@
             textID = new TextBox();
             lblID = new Label();
             lbTitulo = new Label();
+            pnlBD = new Panel();
+            dataGridView2 = new DataGridView();
+            colID = new DataGridViewTextBoxColumn();
+            colNombre = new DataGridViewTextBoxColumn();
+            colCategoria = new DataGridViewTextBoxColumn();
+            colStock = new DataGridViewTextBoxColumn();
+            colCosto = new DataGridViewTextBoxColumn();
+            colPVenta = new DataGridViewTextBoxColumn();
+            btnGuardarBD = new FontAwesome.Sharp.IconButton();
+            pnlBuscarBD = new Panel();
+            tbBuscarBD = new TextBox();
+            BuscarBD = new Label();
+            Titulo = new Label();
+            dataGridView1 = new DataGridView();
+            lblTitulo = new Label();
+            label1 = new Label();
+            iconButton1 = new FontAwesome.Sharp.IconButton();
+            panel5 = new Panel();
+            textBox1 = new TextBox();
             pnlFondo.SuspendLayout();
-            tableLayoutPanel1.SuspendLayout();
+            Inventario.SuspendLayout();
             pnlDetalles.SuspendLayout();
             pnlPV.SuspendLayout();
             pnlStock.SuspendLayout();
             pnlPC.SuspendLayout();
             pnlNombre.SuspendLayout();
             panel1.SuspendLayout();
+            pnlBD.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
+            pnlBuscarBD.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            panel5.SuspendLayout();
             SuspendLayout();
             // 
             // pnlFondo
             // 
-            pnlFondo.BackColor = Color.FromArgb(52, 133, 63);
-            pnlFondo.Controls.Add(tableLayoutPanel1);
+            pnlFondo.BackColor = Color.FromArgb(192, 255, 192);
+            pnlFondo.Controls.Add(Inventario);
             pnlFondo.Dock = DockStyle.Fill;
             pnlFondo.Location = new Point(0, 0);
             pnlFondo.Margin = new Padding(3, 4, 3, 4);
             pnlFondo.Name = "pnlFondo";
-            pnlFondo.Size = new Size(1394, 795);
+            pnlFondo.Size = new Size(1394, 638);
             pnlFondo.TabIndex = 0;
             // 
-            // tableLayoutPanel1
+            // Inventario
             // 
-            tableLayoutPanel1.ColumnCount = 2;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 55F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 45F));
-            tableLayoutPanel1.Controls.Add(pnlDetalles, 0, 0);
-            tableLayoutPanel1.Dock = DockStyle.Fill;
-            tableLayoutPanel1.Location = new Point(0, 0);
-            tableLayoutPanel1.Margin = new Padding(3, 4, 3, 4);
-            tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 1;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.Size = new Size(1394, 795);
-            tableLayoutPanel1.TabIndex = 0;
-            tableLayoutPanel1.Paint += tableLayoutPanel1_Paint;
+            Inventario.BackColor = Color.Green;
+            Inventario.ColumnCount = 2;
+            Inventario.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            Inventario.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            Inventario.Controls.Add(pnlDetalles, 0, 0);
+            Inventario.Controls.Add(pnlBD, 1, 0);
+            Inventario.Dock = DockStyle.Fill;
+            Inventario.Location = new Point(0, 0);
+            Inventario.Margin = new Padding(3, 4, 3, 4);
+            Inventario.Name = "Inventario";
+            Inventario.RowCount = 1;
+            Inventario.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            Inventario.Size = new Size(1394, 638);
+            Inventario.TabIndex = 0;
+            Inventario.Paint += tableLayoutPanel1_Paint;
             // 
             // pnlDetalles
             // 
             pnlDetalles.BackColor = Color.FromArgb(192, 255, 192);
+            pnlDetalles.Controls.Add(panel2);
+            pnlDetalles.Controls.Add(flowLayoutPanel1);
+            pnlDetalles.Controls.Add(pnlTabla);
             pnlDetalles.Controls.Add(pnlPV);
             pnlDetalles.Controls.Add(lblVenta);
             pnlDetalles.Controls.Add(btnEliminar);
@@ -110,10 +142,32 @@
             pnlDetalles.Location = new Point(3, 4);
             pnlDetalles.Margin = new Padding(3, 4, 3, 4);
             pnlDetalles.Name = "pnlDetalles";
-            pnlDetalles.Size = new Size(760, 787);
+            pnlDetalles.Size = new Size(691, 630);
             pnlDetalles.TabIndex = 0;
             pnlDetalles.Paint += pnlDetalles_Paint;
             pnlDetalles.Resize += pnlDetalles_Resize;
+            // 
+            // panel2
+            // 
+            panel2.Location = new Point(780, 3);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(416, 422);
+            panel2.TabIndex = 27;
+            // 
+            // flowLayoutPanel1
+            // 
+            flowLayoutPanel1.Location = new Point(936, 150);
+            flowLayoutPanel1.Name = "flowLayoutPanel1";
+            flowLayoutPanel1.Size = new Size(10, 267);
+            flowLayoutPanel1.TabIndex = 26;
+            // 
+            // pnlTabla
+            // 
+            pnlTabla.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            pnlTabla.Location = new Point(766, 0);
+            pnlTabla.Name = "pnlTabla";
+            pnlTabla.Size = new Size(553, 634);
+            pnlTabla.TabIndex = 25;
             // 
             // pnlPV
             // 
@@ -163,7 +217,7 @@
             btnEliminar.Location = new Point(447, 465);
             btnEliminar.Margin = new Padding(3, 4, 3, 4);
             btnEliminar.Name = "btnEliminar";
-            btnEliminar.Size = new Size(119, 41);
+            btnEliminar.Size = new Size(157, 41);
             btnEliminar.TabIndex = 22;
             btnEliminar.Text = "ELIMINAR";
             btnEliminar.UseVisualStyleBackColor = false;
@@ -185,7 +239,7 @@
             btnGuardar.Location = new Point(241, 465);
             btnGuardar.Margin = new Padding(3, 4, 3, 4);
             btnGuardar.Name = "btnGuardar";
-            btnGuardar.Size = new Size(119, 41);
+            btnGuardar.Size = new Size(162, 41);
             btnGuardar.TabIndex = 21;
             btnGuardar.Text = "GUARDAR";
             btnGuardar.UseVisualStyleBackColor = false;
@@ -207,7 +261,7 @@
             btnNuevo.Location = new Point(24, 465);
             btnNuevo.Margin = new Padding(3, 4, 3, 4);
             btnNuevo.Name = "btnNuevo";
-            btnNuevo.Size = new Size(119, 41);
+            btnNuevo.Size = new Size(159, 41);
             btnNuevo.TabIndex = 20;
             btnNuevo.Text = "NUEVO";
             btnNuevo.UseVisualStyleBackColor = false;
@@ -372,17 +426,228 @@
             lbTitulo.TabIndex = 0;
             lbTitulo.Text = "Detalles Inventario";
             // 
+            // pnlBD
+            // 
+            pnlBD.BackColor = Color.FromArgb(192, 255, 192);
+            pnlBD.Controls.Add(dataGridView2);
+            pnlBD.Controls.Add(btnGuardarBD);
+            pnlBD.Controls.Add(pnlBuscarBD);
+            pnlBD.Controls.Add(BuscarBD);
+            pnlBD.Controls.Add(Titulo);
+            pnlBD.Dock = DockStyle.Fill;
+            pnlBD.Location = new Point(700, 3);
+            pnlBD.Name = "pnlBD";
+            pnlBD.Size = new Size(691, 632);
+            pnlBD.TabIndex = 1;
+            pnlBD.Paint += pnlBD_Paint;
+            pnlBD.Resize += pnlBD_Resize;
+            // 
+            // dataGridView2
+            // 
+            dataGridView2.AllowUserToAddRows = false;
+            dataGridView2.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView2.BackgroundColor = Color.Silver;
+            dataGridView2.BorderStyle = BorderStyle.None;
+            dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView2.Columns.AddRange(new DataGridViewColumn[] { colID, colNombre, colCategoria, colStock, colCosto, colPVenta });
+            dataGridView2.Location = new Point(11, 151);
+            dataGridView2.Name = "dataGridView2";
+            dataGridView2.ReadOnly = true;
+            dataGridView2.RowHeadersVisible = false;
+            dataGridView2.RowHeadersWidth = 51;
+            dataGridView2.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridView2.Size = new Size(671, 472);
+            dataGridView2.TabIndex = 18;
+            dataGridView2.CellContentClick += dataGridView2_CellContentClick;
+            // 
+            // colID
+            // 
+            colID.HeaderText = "ID";
+            colID.MinimumWidth = 6;
+            colID.Name = "colID";
+            colID.ReadOnly = true;
+            // 
+            // colNombre
+            // 
+            colNombre.HeaderText = "Nombre";
+            colNombre.MinimumWidth = 6;
+            colNombre.Name = "colNombre";
+            colNombre.ReadOnly = true;
+            // 
+            // colCategoria
+            // 
+            colCategoria.HeaderText = "Categoria";
+            colCategoria.MinimumWidth = 6;
+            colCategoria.Name = "colCategoria";
+            colCategoria.ReadOnly = true;
+            // 
+            // colStock
+            // 
+            colStock.HeaderText = "Stock";
+            colStock.MinimumWidth = 6;
+            colStock.Name = "colStock";
+            colStock.ReadOnly = true;
+            // 
+            // colCosto
+            // 
+            colCosto.HeaderText = "Costo";
+            colCosto.MinimumWidth = 6;
+            colCosto.Name = "colCosto";
+            colCosto.ReadOnly = true;
+            // 
+            // colPVenta
+            // 
+            colPVenta.HeaderText = "P.Venta";
+            colPVenta.MinimumWidth = 6;
+            colPVenta.Name = "colPVenta";
+            colPVenta.ReadOnly = true;
+            // 
+            // btnGuardarBD
+            // 
+            btnGuardarBD.BackColor = Color.SeaGreen;
+            btnGuardarBD.Cursor = Cursors.Hand;
+            btnGuardarBD.FlatAppearance.BorderSize = 0;
+            btnGuardarBD.FlatStyle = FlatStyle.Flat;
+            btnGuardarBD.ForeColor = Color.White;
+            btnGuardarBD.IconChar = FontAwesome.Sharp.IconChar.Search;
+            btnGuardarBD.IconColor = Color.Black;
+            btnGuardarBD.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnGuardarBD.IconSize = 20;
+            btnGuardarBD.ImageAlign = ContentAlignment.BottomLeft;
+            btnGuardarBD.Location = new Point(543, 82);
+            btnGuardarBD.Margin = new Padding(3, 4, 3, 4);
+            btnGuardarBD.Name = "btnGuardarBD";
+            btnGuardarBD.Size = new Size(115, 37);
+            btnGuardarBD.TabIndex = 17;
+            btnGuardarBD.Text = "BUSCAR";
+            btnGuardarBD.UseVisualStyleBackColor = false;
+            btnGuardarBD.Paint += btnGuardarBD_Paint;
+            // 
+            // pnlBuscarBD
+            // 
+            pnlBuscarBD.BackColor = Color.White;
+            pnlBuscarBD.Controls.Add(tbBuscarBD);
+            pnlBuscarBD.Location = new Point(154, 78);
+            pnlBuscarBD.Margin = new Padding(3, 4, 3, 4);
+            pnlBuscarBD.Name = "pnlBuscarBD";
+            pnlBuscarBD.Size = new Size(354, 49);
+            pnlBuscarBD.TabIndex = 16;
+            pnlBuscarBD.Paint += pnlBuscarBD_Paint;
+            // 
+            // tbBuscarBD
+            // 
+            tbBuscarBD.BorderStyle = BorderStyle.None;
+            tbBuscarBD.Cursor = Cursors.IBeam;
+            tbBuscarBD.Location = new Point(3, 2);
+            tbBuscarBD.Margin = new Padding(3, 4, 3, 4);
+            tbBuscarBD.Multiline = true;
+            tbBuscarBD.Name = "tbBuscarBD";
+            tbBuscarBD.PlaceholderText = "EJ. AA11";
+            tbBuscarBD.Size = new Size(348, 45);
+            tbBuscarBD.TabIndex = 0;
+            tbBuscarBD.TextChanged += tbBuscarBD_TextChanged;
+            // 
+            // BuscarBD
+            // 
+            BuscarBD.AutoSize = true;
+            BuscarBD.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            BuscarBD.Location = new Point(11, 86);
+            BuscarBD.Name = "BuscarBD";
+            BuscarBD.Size = new Size(147, 32);
+            BuscarBD.TabIndex = 15;
+            BuscarBD.Text = "BUSCAR ID:";
+            // 
+            // Titulo
+            // 
+            Titulo.AutoSize = true;
+            Titulo.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            Titulo.Location = new Point(17, 12);
+            Titulo.Name = "Titulo";
+            Titulo.Size = new Size(379, 38);
+            Titulo.TabIndex = 0;
+            Titulo.Text = "Base de datos de inventario";
+            // 
+            // dataGridView1
+            // 
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Enabled = false;
+            dataGridView1.Location = new Point(130, 190);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.RowHeadersWidth = 51;
+            dataGridView1.Size = new Size(300, 188);
+            dataGridView1.TabIndex = 0;
+            // 
+            // lblTitulo
+            // 
+            lblTitulo.AutoSize = true;
+            lblTitulo.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTitulo.Location = new Point(14, 12);
+            lblTitulo.Name = "lblTitulo";
+            lblTitulo.Size = new Size(380, 38);
+            lblTitulo.TabIndex = 1;
+            lblTitulo.Text = "Base de datos de Inventario";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.Location = new Point(3, 78);
+            label1.Name = "label1";
+            label1.Size = new Size(147, 32);
+            label1.TabIndex = 29;
+            label1.Text = "BUSCAR ID:";
+            // 
+            // iconButton1
+            // 
+            iconButton1.BackColor = Color.SeaGreen;
+            iconButton1.Cursor = Cursors.Hand;
+            iconButton1.FlatAppearance.BorderSize = 0;
+            iconButton1.FlatStyle = FlatStyle.Flat;
+            iconButton1.ForeColor = Color.White;
+            iconButton1.IconChar = FontAwesome.Sharp.IconChar.Search;
+            iconButton1.IconColor = Color.Black;
+            iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton1.IconSize = 20;
+            iconButton1.ImageAlign = ContentAlignment.BottomLeft;
+            iconButton1.Location = new Point(539, 74);
+            iconButton1.Margin = new Padding(3, 4, 3, 4);
+            iconButton1.Name = "iconButton1";
+            iconButton1.Size = new Size(115, 37);
+            iconButton1.TabIndex = 31;
+            iconButton1.Text = "BUSCAR";
+            iconButton1.UseVisualStyleBackColor = false;
+            // 
+            // panel5
+            // 
+            panel5.BackColor = Color.White;
+            panel5.Controls.Add(textBox1);
+            panel5.Location = new Point(150, 70);
+            panel5.Margin = new Padding(3, 4, 3, 4);
+            panel5.Name = "panel5";
+            panel5.Size = new Size(354, 49);
+            panel5.TabIndex = 30;
+            // 
+            // textBox1
+            // 
+            textBox1.BorderStyle = BorderStyle.None;
+            textBox1.Cursor = Cursors.IBeam;
+            textBox1.Location = new Point(3, 12);
+            textBox1.Margin = new Padding(3, 4, 3, 4);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(347, 20);
+            textBox1.TabIndex = 0;
+            // 
             // FormInventario
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(68, 154, 2);
-            ClientSize = new Size(1394, 795);
+            ClientSize = new Size(1394, 638);
             Controls.Add(pnlFondo);
             Name = "FormInventario";
             Text = "FormInventario";
             pnlFondo.ResumeLayout(false);
-            tableLayoutPanel1.ResumeLayout(false);
+            Inventario.ResumeLayout(false);
             pnlDetalles.ResumeLayout(false);
             pnlDetalles.PerformLayout();
             pnlPV.ResumeLayout(false);
@@ -395,13 +660,21 @@
             pnlNombre.PerformLayout();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
+            pnlBD.ResumeLayout(false);
+            pnlBD.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
+            pnlBuscarBD.ResumeLayout(false);
+            pnlBuscarBD.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            panel5.ResumeLayout(false);
+            panel5.PerformLayout();
             ResumeLayout(false);
         }
 
         #endregion
 
         private Panel pnlFondo;
-        private TableLayoutPanel tableLayoutPanel1;
+        private TableLayoutPanel Inventario;
         private Panel pnlDetalles;
         private Label lbTitulo;
         private Panel panel1;
@@ -423,5 +696,27 @@
         private TextBox textPV;
         private Label lblVenta;
         private FontAwesome.Sharp.IconButton btnEliminar;
+        private Panel pnlTabla;
+        private Panel panel2;
+        private FlowLayoutPanel flowLayoutPanel1;
+        private Label lblTitulo;
+        private DataGridView dataGridView1;
+        private FontAwesome.Sharp.IconButton iconButton1;
+        private Panel panel5;
+        private TextBox textBox1;
+        private Label label1;
+        private Panel pnlBD;
+        private Label Titulo;
+        private DataGridView dataGridView2;
+        private FontAwesome.Sharp.IconButton btnGuardarBD;
+        private Panel pnlBuscarBD;
+        private TextBox tbBuscarBD;
+        private Label BuscarBD;
+        private DataGridViewTextBoxColumn colID;
+        private DataGridViewTextBoxColumn colNombre;
+        private DataGridViewTextBoxColumn colCategoria;
+        private DataGridViewTextBoxColumn colStock;
+        private DataGridViewTextBoxColumn colCosto;
+        private DataGridViewTextBoxColumn colPVenta;
     }
 }

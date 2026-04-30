@@ -36,6 +36,8 @@ namespace VeloxSoft
             this.ControlBox = false; // Quita los botones cerrar/min/max estándar
             this.DoubleBuffered = true; // Evita el parpadeo al redimensionar
             this.MaximizedBounds = Screen.FromHandle(this.Handle).WorkingArea;
+
+
         }
 
         private void ActivateButton(object senderBtn, Color color)
