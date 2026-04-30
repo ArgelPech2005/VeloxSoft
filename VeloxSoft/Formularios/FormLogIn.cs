@@ -56,11 +56,11 @@ namespace VeloxSoft.Formularios
         private void LogInButton_Click(object sender, EventArgs e)
         {
             Usuario usuario = new Usuario();
-            LabelError.Text = string.Empty; 
+            LabelError.Text = string.Empty;
             string errorMessage = null;
             string Id = TxtUsuario.Text;
             string Password = TxtPassword.Text;
-           
+
             if (Id != string.Empty && Password != string.Empty)
             {
                 usuario = _autenticarUsuario.Autenticar(Id, Password, out errorMessage);
@@ -98,6 +98,11 @@ namespace VeloxSoft.Formularios
         {
             if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
                 e.Handled = true;
+        }
+
+        private void TxtUsuario_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

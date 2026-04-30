@@ -32,28 +32,30 @@
             LabelError = new Label();
             LabelLimpiar = new Label();
             TxtPassword = new TextBox();
-            TxtUsuario = new TextBox();
             LogInButton = new Button();
             panel3 = new Panel();
             PasswordIcon = new PictureBox();
             panel2 = new Panel();
             panel1 = new Panel();
+            TxtUsuario = new TextBox();
             UserIcon = new PictureBox();
             TxtLogIn = new Label();
             pictureBox1 = new PictureBox();
             LabelSalir = new Label();
+            textUsuario = new TextBox();
             NavPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)PasswordIcon).BeginInit();
+            panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)UserIcon).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // NavPanel
             // 
+            NavPanel.Controls.Add(textUsuario);
             NavPanel.Controls.Add(LabelError);
             NavPanel.Controls.Add(LabelLimpiar);
             NavPanel.Controls.Add(TxtPassword);
-            NavPanel.Controls.Add(TxtUsuario);
             NavPanel.Controls.Add(LogInButton);
             NavPanel.Controls.Add(panel3);
             NavPanel.Controls.Add(PasswordIcon);
@@ -74,9 +76,9 @@
             // 
             LabelError.Dock = DockStyle.Bottom;
             LabelError.ForeColor = Color.Red;
-            LabelError.Location = new Point(0, 423);
+            LabelError.Location = new Point(0, 429);
             LabelError.Name = "LabelError";
-            LabelError.Size = new Size(292, 23);
+            LabelError.Size = new Size(292, 17);
             LabelError.TabIndex = 73;
             LabelError.Text = "nada";
             LabelError.TextAlign = ContentAlignment.TopCenter;
@@ -88,7 +90,7 @@
             LabelLimpiar.Cursor = Cursors.Hand;
             LabelLimpiar.Font = new Font("Century Gothic", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             LabelLimpiar.ForeColor = Color.White;
-            LabelLimpiar.Location = new Point(200, 319);
+            LabelLimpiar.Location = new Point(178, 305);
             LabelLimpiar.Name = "LabelLimpiar";
             LabelLimpiar.Size = new Size(56, 16);
             LabelLimpiar.TabIndex = 71;
@@ -101,27 +103,14 @@
             TxtPassword.BorderStyle = BorderStyle.None;
             TxtPassword.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             TxtPassword.ForeColor = Color.White;
-            TxtPassword.Location = new Point(48, 275);
+            TxtPassword.Location = new Point(51, 282);
+            TxtPassword.Margin = new Padding(3, 2, 3, 2);
             TxtPassword.MaxLength = 3000;
             TxtPassword.Multiline = true;
             TxtPassword.Name = "TxtPassword";
             TxtPassword.PasswordChar = '*';
-            TxtPassword.Size = new Size(205, 24);
+            TxtPassword.Size = new Size(179, 18);
             TxtPassword.TabIndex = 70;
-            // 
-            // TxtUsuario
-            // 
-            TxtUsuario.BackColor = Color.FromArgb(10, 34, 17);
-            TxtUsuario.BorderStyle = BorderStyle.None;
-            TxtUsuario.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            TxtUsuario.ForeColor = Color.White;
-            TxtUsuario.Location = new Point(48, 207);
-            TxtUsuario.MaxLength = 10;
-            TxtUsuario.Multiline = true;
-            TxtUsuario.Name = "TxtUsuario";
-            TxtUsuario.Size = new Size(205, 24);
-            TxtUsuario.TabIndex = 69;
-            TxtUsuario.KeyPress += TxtUsuario_KeyPress;
             // 
             // LogInButton
             // 
@@ -166,10 +155,27 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(TxtUsuario);
             panel1.Location = new Point(20, 226);
             panel1.Name = "panel1";
             panel1.Size = new Size(236, 1);
             panel1.TabIndex = 64;
+            // 
+            // TxtUsuario
+            // 
+            TxtUsuario.BackColor = Color.FromArgb(10, 34, 17);
+            TxtUsuario.BorderStyle = BorderStyle.None;
+            TxtUsuario.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            TxtUsuario.ForeColor = Color.White;
+            TxtUsuario.Location = new Point(28, -18);
+            TxtUsuario.Margin = new Padding(3, 2, 3, 2);
+            TxtUsuario.MaxLength = 10;
+            TxtUsuario.Multiline = true;
+            TxtUsuario.Name = "TxtUsuario";
+            TxtUsuario.Size = new Size(205, 24);
+            TxtUsuario.TabIndex = 69;
+            TxtUsuario.TextChanged += TxtUsuario_TextChanged;
+            TxtUsuario.KeyPress += TxtUsuario_KeyPress;
             // 
             // UserIcon
             // 
@@ -208,12 +214,26 @@
             LabelSalir.Cursor = Cursors.Hand;
             LabelSalir.Font = new Font("Century Gothic", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             LabelSalir.ForeColor = Color.White;
-            LabelSalir.Location = new Point(117, 385);
+            LabelSalir.Location = new Point(119, 374);
             LabelSalir.Name = "LabelSalir";
             LabelSalir.Size = new Size(36, 16);
             LabelSalir.TabIndex = 72;
             LabelSalir.Text = "Salir";
             LabelSalir.Click += LabelSalir_Click;
+            // 
+            // textUsuario
+            // 
+            textUsuario.BackColor = Color.FromArgb(10, 34, 17);
+            textUsuario.BorderStyle = BorderStyle.None;
+            textUsuario.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            textUsuario.ForeColor = Color.White;
+            textUsuario.Location = new Point(57, 214);
+            textUsuario.Margin = new Padding(3, 2, 3, 2);
+            textUsuario.MaxLength = 3000;
+            textUsuario.Multiline = true;
+            textUsuario.Name = "textUsuario";
+            textUsuario.Size = new Size(179, 18);
+            textUsuario.TabIndex = 74;
             // 
             // FormLogIn
             // 
@@ -229,6 +249,8 @@
             NavPanel.ResumeLayout(false);
             NavPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)PasswordIcon).EndInit();
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)UserIcon).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
@@ -249,5 +271,6 @@
         private PictureBox pictureBox1;
         private Label LabelSalir;
         private Label LabelError;
+        private TextBox textUsuario;
     }
 }
