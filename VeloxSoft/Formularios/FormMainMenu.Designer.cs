@@ -62,7 +62,7 @@
             // 
             // panelMenu
             // 
-            panelMenu.BackColor = Color.FromArgb(68, 154, 2);
+            panelMenu.BackColor = Color.FromArgb(27, 67, 50);
             panelMenu.Controls.Add(btnCaja);
             panelMenu.Controls.Add(btnCorte);
             panelMenu.Controls.Add(btnGastos);
@@ -256,7 +256,7 @@
             // 
             // panelTitleBar
             // 
-            panelTitleBar.BackColor = Color.FromArgb(68, 154, 2);
+            panelTitleBar.BackColor = Color.FromArgb(27, 67, 50);
             panelTitleBar.Controls.Add(btnMaximixed);
             panelTitleBar.Controls.Add(btnMinus);
             panelTitleBar.Controls.Add(btnExit);
@@ -337,7 +337,7 @@
             // 
             // iconCurrentChildForm
             // 
-            iconCurrentChildForm.BackColor = Color.FromArgb(68, 150, 3);
+            iconCurrentChildForm.BackColor = Color.FromArgb(27, 67, 50);
             iconCurrentChildForm.ForeColor = SystemColors.ControlText;
             iconCurrentChildForm.IconChar = FontAwesome.Sharp.IconChar.HomeUser;
             iconCurrentChildForm.IconColor = SystemColors.ControlText;

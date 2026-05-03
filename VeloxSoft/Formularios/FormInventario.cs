@@ -239,16 +239,16 @@ namespace VeloxSoft.Formularios
             pnlDetalles_Resize(this, EventArgs.Empty);
             pnlBD_Resize(this, EventArgs.Empty);  // ← AGREGA ESTO
             CargarDatosPrueba();                   // ← AGREGA ESTO
-        
+
         }
         private void CargarDatosPrueba()
         {
-            dataGridView2.Rows.Clear();
-            dataGridView2.Rows.Add("MZR01", "Manzana Roja", "Frutas", 150, "$25", "$15");
-            dataGridView2.Rows.Add("MZR02", "Manzana Verde", "Frutas", 30, "$25");
-            dataGridView2.Rows.Add("TMV03", "Tomate Verde", "Verduras", 20, "$18");
-            dataGridView2.Rows.Add("TMV06", "Tomate Roja", "Verduras", 20, "$25");
-            dataGridView2.Rows.Add("TMV07", "Limón", "Frutas", 10, "$25");
+            dtgBDInv.Rows.Clear();
+            dtgBDInv.Rows.Add("MZR01", "Manzana Roja", "Frutas", 150, "$25", "$15");
+            dtgBDInv.Rows.Add("MZR02", "Manzana Verde", "Frutas", 30, "$25");
+            dtgBDInv.Rows.Add("TMV03", "Tomate Verde", "Verduras", 20, "$18");
+            dtgBDInv.Rows.Add("TMV06", "Tomate Roja", "Verduras", 20, "$25");
+            dtgBDInv.Rows.Add("TMV07", "Limón", "Frutas", 10, "$25");
         }
 
         private void pnlBD_Paint(object sender, PaintEventArgs e)
@@ -294,11 +294,16 @@ namespace VeloxSoft.Formularios
             btnGuardarBD.Location = new Point(pnlBuscarBD.Right + 8, 60);
             btnGuardarBD.Size = new Size(w - pnlBuscarBD.Right - 25, 45);
 
-            dataGridView2.Location = new Point(11, 120);
-            dataGridView2.Size = new Size(w - 22, h - 135);
+            dtgBDInv.Location = new Point(11, 120);
+            dtgBDInv.Size = new Size(w - 22, h - 135);
 
             pnlBD.Invalidate();
-        
-    }
+
+        }
+
+        private void lblID_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
