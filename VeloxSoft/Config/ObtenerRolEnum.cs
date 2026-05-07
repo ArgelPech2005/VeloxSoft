@@ -15,5 +15,15 @@ namespace VeloxSoft.Config
                 _ => Roles.Lectura
             };
         }
+
+        public static string ObtenerRolString(Roles rol)
+        {
+            return rol switch
+            {
+                Roles.Admin => "1",
+                Roles.Crud => "2",
+                _ => "3"
+            };
+        }
     }
 }

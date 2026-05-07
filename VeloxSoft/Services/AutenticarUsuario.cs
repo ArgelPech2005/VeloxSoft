@@ -74,7 +74,7 @@ namespace VeloxSoft.Services
         public Usuario ObtenerDato(long username, out string errorMessage)
         {
             errorMessage = null;
-            var conn = new NpgsqlConnection(_dbConfig.GetConnection(Roles.Lectura));
+            var conn = new NpgsqlConnection(_dbConfig.GetConnection(Roles.Crud));
             conn.Open();
 
             using var cmd = new NpgsqlCommand(

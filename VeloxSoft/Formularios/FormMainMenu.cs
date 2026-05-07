@@ -12,6 +12,7 @@ namespace VeloxSoft
     public partial class FormMainMenu : Form
     {
         private readonly ServicioInventario _ServicioInventario;
+        private readonly ServicioUsuarios _ServicioUsuarios;
         // Fields
         private IconButton currentBtn;
         private Panel leftBorderBtn;
@@ -20,10 +21,13 @@ namespace VeloxSoft
 
 
         // Constructor
-        public FormMainMenu(ServicioInventario ServicioInventario)
+        public FormMainMenu(ServicioInventario ServicioInventario, ServicioUsuarios ServicioUsuarios)
         {
-            InitializeComponent();
+            //Instancias de servicios
             _ServicioInventario = ServicioInventario;
+            _ServicioUsuarios = ServicioUsuarios;
+            //Fin de Instancias de servicios
+            InitializeComponent();
             leftBorderBtn = new Panel();
             leftBorderBtn.Size = new Size(10, 60);
             panelMenu.Controls.Add(leftBorderBtn);
@@ -119,7 +123,7 @@ namespace VeloxSoft
 
         private void btnUsuarios_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new FormUsuarios());
+            OpenChildForm(new FormUsuarios(_ServicioUsuarios));
             ActivateButton(sender, RGBColors.color1);
         }
 
@@ -199,6 +203,7 @@ namespace VeloxSoft
 
         private void btnExit_Click(object sender, EventArgs e)
         {
+            _ServicioUsuarios.CerrarSesion(out string errorMessage);
             Application.Exit();
         }
 

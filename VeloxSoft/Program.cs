@@ -31,6 +31,7 @@ namespace VeloxSoft
             var dbConfig = new DatabaseConfig(config);
             var AutenticarUsuario = new AutenticarUsuario(dbConfig);
             var ServicioInventario = new ServicioInventario(dbConfig);
+            var ServicioUsuarios = new ServicioUsuarios(dbConfig);
 
             // Creamos el formulario de Login
             FormLogIn login = new FormLogIn(AutenticarUsuario);
@@ -39,7 +40,7 @@ namespace VeloxSoft
             // Si el Login se cierra con un resultado "OK", iniciamos el menú
             if (login.ShowDialog() == DialogResult.OK)
             {
-                Application.Run(new FormMainMenu(ServicioInventario));
+                Application.Run(new FormMainMenu(ServicioInventario, ServicioUsuarios));
             }
         }
     }   

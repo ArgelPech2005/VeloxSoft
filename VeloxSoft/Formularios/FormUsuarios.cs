@@ -7,13 +7,17 @@ using System.Drawing.Drawing2D;
 using System.Text;
 using System.Windows.Forms;
 using static System.Net.Mime.MediaTypeNames;
+using VeloxSoft.Services;
+using VeloxSoft.Config;
 
 namespace VeloxSoft.Formularios
 {
     public partial class FormUsuarios : Form
     {
-        public FormUsuarios()
+        private readonly ServicioUsuarios _ServicioUsuarios;
+        public FormUsuarios(ServicioUsuarios servicioUsuarios)
         {
+            _ServicioUsuarios = servicioUsuarios;
             InitializeComponent();
             pnlUsuarios_Resize(this, EventArgs.Empty); // ← AGREGA
             pnlFormulario_Resize(this, EventArgs.Empty);
@@ -423,6 +427,41 @@ namespace VeloxSoft.Formularios
 
         }
 
+        private void FormUsuarios_Load(object sender, EventArgs e)
+        {
+            CargarUsuarios();
+        }
+
+        // Logica de funcionamiento, no mezclar codigo de diseño con codigo de logica
+        private void CargarUsuarios()
+        {
+            string errorMessage;
+            var usuarios = _ServicioUsuarios.Ver_Usuarios(out errorMessage);
+            if (!string.IsNullOrEmpty(errorMessage))
+            {
+                //Manejo de errores en un label 
+                MessageBox.Show(errorMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            dgvUsuariosDB.Rows.Clear(); // Limpio la tabla antes de cargar los datos
+
+            foreach (var usuario in usuarios)
+            {
+                string rolTexto = usuario.Rol switch
+                {
+                    "0" => "Gerente",
+                    "1" => "Administrador",
+                    "2" => "Cajero",
+                    _ => "Desconocido"
+                };
+                dgvUsuariosDB.Rows.Add( 
+                    usuario.Id,
+                    usuario.Nombre,
+                    rolTexto,
+                    usuario.Secion ? "Activo" : "Inactivo",
+                    usuario.Estado ? "Empleado" : "Desempleado");
+            }
+        }
 
     }
 }

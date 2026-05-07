@@ -483,6 +483,7 @@
             Controls.Add(pnlUsuarios);
             Name = "FormUsuarios";
             Text = "FormUsuarios";
+            Load += FormUsuarios_Load;
             pnlUsuarios.ResumeLayout(false);
             pnlBotones.ResumeLayout(false);
             pnlBotones.PerformLayout();
