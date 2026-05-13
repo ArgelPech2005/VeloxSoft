@@ -134,28 +134,5 @@ namespace VeloxSoft.Services
             return CryptographicOperations.FixedTimeEquals(hash, newHash);
         }
 
-        public static string HashPassword(string password)
-        {
-            // Generar salt aleatorio
-            byte[] salt = RandomNumberGenerator.GetBytes(16);
-
-            var argon2 = new Argon2id(Encoding.UTF8.GetBytes(password))
-            {
-                Salt = salt,
-                DegreeOfParallelism = 8, // núcleos
-                Iterations = 4,
-                MemorySize = 1024 * 64 // 64 MB
-            };
-
-            byte[] hash = argon2.GetBytes(32);
-
-            // Combinar salt + hash
-            byte[] result = new byte[salt.Length + hash.Length];
-            Buffer.BlockCopy(salt, 0, result, 0, salt.Length);
-            Buffer.BlockCopy(hash, 0, result, salt.Length, hash.Length);
-
-            return Convert.ToBase64String(result);
-        }
-
     }
 }

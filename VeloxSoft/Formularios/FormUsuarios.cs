@@ -1,20 +1,327 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+using System.Collections;
 using System.Drawing.Drawing2D;
-using System.Text;
-using System.Windows.Forms;
-using static System.Net.Mime.MediaTypeNames;
+using System.Text.RegularExpressions;
+using VeloxSoft.Models;
 using VeloxSoft.Services;
-using VeloxSoft.Config;
 
 namespace VeloxSoft.Formularios
 {
     public partial class FormUsuarios : Form
     {
         private readonly ServicioUsuarios _ServicioUsuarios;
+        private bool _modoEdicion = false;
+
+        // Logica de funcionamiento, no mezclar codigo de diseño con codigo de logica
+        private void CargarUsuarios()
+        {
+            List<Usuario> Usuarios = _ServicioUsuarios.Buscar_Usuarios(textBuscarU.Text, cbCROL.Text, cbCSESION.Text, cbCESTADO.Text, out string errorMessage);
+
+            dgvUsuariosDB.Rows.Clear();
+
+            foreach (var usuario in Usuarios)
+            {
+                string rolTexto = usuario.Rol switch
+                {
+                    "0" => "Gerente",
+                    "1" => "Administrador",
+                    "2" => "Cajero",
+                    _ => "Desconocido"
+                };
+                dgvUsuariosDB.Rows.Add(
+                    usuario.Id,
+                    usuario.Nombre,
+                    rolTexto,
+                    usuario.Secion ? "Conectado" : "Desconectado",
+                    usuario.Estado ? "Activo" : "Inactivo");
+            }
+        }
+
+        private void dgvUsuariosDB_Click(object sender, EventArgs e)
+        {
+            if (dgvUsuariosDB.SelectedRows[0].Cells[4].Value.ToString() == "Inactivo")
+            {
+                btnEliminar.BackColor = Color.Green;
+                btnEliminar.Text = "Activar";
+            }
+            else
+            {
+                btnEliminar.BackColor = Color.FromArgb(163, 45, 45);
+                btnEliminar.Text = "Eliminar";
+            }
+        }
+
+        private void dgvUsuariosDB_DoubleClick(object sender, EventArgs e)
+        {
+            Limpiar();
+            textID.Text = dgvUsuariosDB.CurrentRow.Cells[0].Value.ToString();
+            ID_actual.Text = dgvUsuariosDB.CurrentRow.Cells[0].Value.ToString();
+            textNombre.Text = dgvUsuariosDB.CurrentRow.Cells[1].Value.ToString();
+            textRol.Text = dgvUsuariosDB.CurrentRow.Cells[2].Value.ToString();
+
+            string Secion = dgvUsuariosDB.CurrentRow.Cells[3].Value.ToString();
+            string Estado = dgvUsuariosDB.CurrentRow.Cells[4].Value.ToString();
+
+            textNombre.Enabled = false;
+            textNombre.ReadOnly = true;
+            textNombre.ForeColor = Color.DarkGray;
+
+
+            int rolInt = dgvUsuariosDB.CurrentRow.Cells[2].Value.ToString() switch
+            {
+                "Gerente" => 0,
+                "Administrador" => 1,
+                "Cajero" => 2,
+                _ => 3
+            };
+
+
+            if (rolInt <= int.Parse(Program.UsuarioLogueado.Rol) || Secion == "Conectado")
+            {
+                textID.Enabled = false;
+                textID.ReadOnly = true;
+                textID.ForeColor = Color.DarkGray;
+                textRol.Enabled = false;
+                textRol.ForeColor = Color.DarkGray;
+                textContra.Enabled = false;
+                textContra.ReadOnly = true;
+                textContra.ForeColor = Color.DarkGray;
+                btnGuardar.Enabled = false;
+                btnEliminar.Enabled = false;
+                // Poner Error
+                // No es posible editar a este usuario porque su rol es igual al tuyo o está conectado.
+            }
+            else
+            {
+                textID.Enabled = true;
+                textID.ReadOnly = false;
+                textID.ForeColor = Color.Black;
+                textRol.Enabled = true;
+                textRol.ForeColor = Color.Black;
+                textContra.Enabled = true;
+                textContra.ReadOnly = false;
+                textContra.ForeColor = Color.Black;
+            }
+
+            if (Estado == "Inactivo")
+            {
+                btnEliminar.BackColor = Color.Green;
+                btnEliminar.Text = "Activar";
+            }
+
+            _modoEdicion = true;
+        }
+
+        private void Limpiar()
+        {
+            textID.Text = "";
+            ID_actual.Text = "";
+            textNombre.Text = "";
+            textRol.Text = "";
+            textContra.Text = "";
+
+            textID.Enabled = true;
+            textID.ReadOnly = false;
+            textID.ForeColor = Color.Black;
+            textNombre.Enabled = true;
+            textNombre.ReadOnly = false;
+            textNombre.ForeColor = Color.Black;
+            textRol.Enabled = true;
+            textRol.ForeColor = Color.Black;
+            textContra.Enabled = true;
+            textContra.ReadOnly = false;
+            textContra.ForeColor = Color.Black;
+
+            btnGuardar.Enabled = true;
+            btnEliminar.Enabled = true;
+            btnEliminar.BackColor = Color.FromArgb(163, 45, 45);
+            btnEliminar.Text = "Eliminar";
+
+            _modoEdicion = false;
+        }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            Limpiar();
+        }
+
+        private void btnGuardar_Click(object sender, EventArgs e)
+        {
+            // Sanitización 
+            string Errores = string.Empty;
+            string errorMessage = string.Empty;
+            if (string.IsNullOrEmpty(textID.Text))
+            {
+                MessageBox.Show("El campo ID no puede estar vacío");
+                Errores += "El campo ID no puede estar vacío.\n";
+            }
+            if (10 > textID.Text.Length)
+            {
+                MessageBox.Show("El campo ID debe tener 10 digitos");
+                Errores += "El campo ID debe tener 10 digitos.\n";
+            }
+            if (string.IsNullOrEmpty(textNombre.Text))
+            {
+                MessageBox.Show("El campo Nombre no puede estar vacío");
+                Errores += "El campo Nombre no puede estar vacío.\n";
+            }
+            if (string.IsNullOrEmpty(textRol.Text))
+            {
+                MessageBox.Show("El campo Rol no puede estar vacío");
+                Errores += "El campo Rol no puede estar vacío.\n";
+            }
+            if (!string.IsNullOrEmpty(textContra.Text))
+            {
+                if (!Regex.IsMatch(textContra.Text, @"[A-Z]"))
+                {
+                    MessageBox.Show("La contraseña debe contener al menos una letra mayúscula");
+                    Errores += "La contraseña debe contener al menos una letra mayúscula.\n";
+                }
+                if (!Regex.IsMatch(textContra.Text, @"[a-z]"))
+                {
+                    MessageBox.Show("La contraseña debe contener al menos una letra minúscula");
+                    Errores += "La contraseña debe contener al menos una letra minúscula.\n";
+                }
+                if (!Regex.IsMatch(textContra.Text, @"\d"))
+                {
+                    MessageBox.Show("La contraseña debe contener al menos un número");
+                    Errores += "La contraseña debe contener al menos un número.\n";
+                }
+                if (textContra.Text.Length < 8)
+                {
+                    MessageBox.Show("La contraseña debe tener al menos 8 caracteres");
+                    Errores += "La contraseña debe tener al menos 8 caracteres.\n";
+                }
+            }
+
+            string rol = textRol.Text switch
+            {
+                "Administrador" => "1",
+                "Cajero" => "2",
+                _ => "3"
+            };
+            if (_modoEdicion)
+            {
+                // Actualizar Usuario
+                if (string.IsNullOrEmpty(Errores))
+                {
+                    _ServicioUsuarios.Actualizar_Usuario(textID.Text, ID_actual.Text, textContra.Text, rol, true, out errorMessage);
+                    if (!string.IsNullOrEmpty(errorMessage))
+                    {
+                        // Poner Error
+                    }
+                    else
+                    {
+                        // Mostrar mensaje de éxito
+                        Limpiar();
+                    }
+                }
+            }
+            else
+            {
+                if (string.IsNullOrEmpty(textContra.Text))
+                {
+                    MessageBox.Show("El campo Contraseña no puede estar vacío.");
+                    Errores += "El campo Contraseña no puede estar vacío.\n";
+                }
+                if (string.IsNullOrEmpty(Errores))
+                {
+                    _ServicioUsuarios.Insertar_Usuario(textID.Text, textNombre.Text, rol, textContra.Text, out errorMessage);
+                    if (!string.IsNullOrEmpty(errorMessage))
+                    {
+                        // Poner Error
+                    }
+                    else
+                    {
+                        // Mostrar mensaje de éxito
+                        Limpiar();
+                    }
+                }
+            }
+            if (!string.IsNullOrEmpty(Errores) || !string.IsNullOrEmpty(errorMessage))
+            {
+                // Poner Error
+            }
+
+            CargarUsuarios();
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            if (dgvUsuariosDB.SelectedRows.Count == 0)
+            {
+                // Poner Error
+                return;
+            }
+
+
+            string idUsuario = dgvUsuariosDB.SelectedRows[0].Cells[0].Value?.ToString() ?? "";
+            int rolInt = dgvUsuariosDB.SelectedRows[0].Cells[2].Value.ToString() switch
+            {
+                "Gerente" => 0,
+                "Administrador" => 1,
+                "Cajero" => 2,
+                _ => 3
+            };
+
+            if (rolInt <= int.Parse(Program.UsuarioLogueado.Rol))
+            {
+                // Poner Error
+                // No es posible eliminar a este usuario porque su rol es igual al tuyo.
+
+                MessageBox.Show($"No es posible {btnEliminar.Text.ToString()} a este usuario porque su rol es igual al tuyo", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (dgvUsuariosDB.SelectedRows[0].Cells[3].Value.ToString() == "Conectado")
+            {
+                // Poner Error
+                MessageBox.Show("No es posible eliminar a este usuario porque está conectado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+
+            var Evitemos_Errores = MessageBox.Show(
+                $"¿Está seguro de que desea {btnEliminar.Text.ToString()} al Usuario con ID: {idUsuario}?",
+                "Confirmar eliminación",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning);
+
+            if (Evitemos_Errores == DialogResult.No) return;
+
+
+            string EstadoUsuario = dgvUsuariosDB.SelectedRows[0].Cells[4].Value?.ToString() ?? "";
+            bool estadoBool = EstadoUsuario == "Inactivo";
+            _ServicioUsuarios.Eliminar_Usuario(idUsuario, estadoBool, out string errorMessage);
+
+            if (!string.IsNullOrEmpty(errorMessage))
+            {
+                // Poner Error
+            }
+            else
+            {
+                CargarUsuarios();
+                Limpiar();
+                // Mostrar mensaje de éxito
+            }
+        }
+        private void btnBuscarU_Click(object sender, EventArgs e)
+        {
+            CargarUsuarios();
+        }
+
+        private void textID_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
+                e.Handled = true;
+        }
+        private void textBuscarU_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
+                e.Handled = true;
+        }
+
+        // Fin logica de funcionamiento
         public FormUsuarios(ServicioUsuarios servicioUsuarios)
         {
             _ServicioUsuarios = servicioUsuarios;
@@ -73,96 +380,6 @@ namespace VeloxSoft.Formularios
 
 
 
-        private void textID_Enter(object sender, EventArgs e)
-        {
-            if (textID.Text == "9991234567")
-            {
-                textID.Text = "";
-                textID.ForeColor = Color.Black;
-            }
-        }
-
-        private void textID_Leave(object sender, EventArgs e)
-        {
-            if (textID.Text == "")
-            {
-                textID.Text = "9991234567";
-                textID.ForeColor = Color.DarkGray;
-            }
-        }
-
-        private void textNombre_Leave(object sender, EventArgs e)
-        {
-            if (textNombre.Text == "")
-            {
-                textNombre.Text = "Nombre cliente...";
-                textNombre.ForeColor = Color.DarkGray;
-            }
-        }
-
-        private void textNombre_Enter(object sender, EventArgs e)
-        {
-            if (textNombre.Text == "Nombre cliente...")
-            {
-                textNombre.Text = "";
-                textNombre.ForeColor = Color.Black;
-            }
-        }
-
-        private void textRol_Leave(object sender, EventArgs e)
-        {
-            if (textRol.Text == "")
-            {
-                textRol.Text = "Rol del usuario...";
-                textRol.ForeColor = Color.DarkGray;
-            }
-        }
-
-        private void textRol_Enter(object sender, EventArgs e)
-        {
-            if (textRol.Text == "Rol del usuario...")
-            {
-                textRol.Text = "";
-                textRol.ForeColor = Color.Black;
-            }
-        }
-
-        private void textContra_Leave(object sender, EventArgs e)
-        {
-            if (textContra.Text == "")
-            {
-                textContra.Text = "********";
-                textContra.ForeColor = Color.DarkGray;
-            }
-        }
-
-        private void textContra_Enter(object sender, EventArgs e)
-        {
-            if (textContra.Text == "********")
-            {
-                textContra.Text = "";
-                textContra.ForeColor = Color.Black;
-            }
-        }
-
-        private void textBuscarU_Enter(object sender, EventArgs e)
-        {
-            if (textBuscarU.Text == "9991234567")
-            {
-                textBuscarU.Text = "";
-                textBuscarU.ForeColor = Color.Black;
-            }
-        }
-
-        private void textBuscarU_Leave(object sender, EventArgs e)
-        {
-            if (textBuscarU.Text == "")
-            {
-                textBuscarU.Text = "9991234567";
-                textBuscarU.ForeColor = Color.DarkGray;
-            }
-        }
-
         private void dgvUsuariosDB_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
@@ -181,16 +398,6 @@ namespace VeloxSoft.Formularios
         private void pnlFormulario_Paint(object sender, PaintEventArgs e)
         {
             RedondearPanel((Panel)sender, e, 15);
-        }
-
-        private void btnLimpiar_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnGuardar_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void btnGuardar_Paint(object sender, PaintEventArgs e)
@@ -238,10 +445,6 @@ namespace VeloxSoft.Formularios
             lblRol.Location = new Point(margenGral, yFilaDoble);
             textRol.Location = new Point(margenGral, yFilaDoble + altoLabel + 2);
             textRol.Size = new Size(anchoMedio, altoInput);
-
-            lblEstado.Location = new Point(margenGral + anchoMedio + 15, yFilaDoble);
-            boxEstado.Location = new Point(margenGral + anchoMedio + 15, yFilaDoble + altoLabel + 2);
-            boxEstado.Size = new Size(anchoMedio, altoInput);
 
             int yContra = textRol.Bottom + espacioEntreGrupos;
             lblContraseña.Location = new Point(margenGral, yContra);
@@ -422,45 +625,9 @@ namespace VeloxSoft.Formularios
             RedondearBoton(btnBuscarU, e, 15);
         }
 
-        private void textID_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void FormUsuarios_Load(object sender, EventArgs e)
         {
             CargarUsuarios();
-        }
-
-        // Logica de funcionamiento, no mezclar codigo de diseño con codigo de logica
-        private void CargarUsuarios()
-        {
-            string errorMessage;
-            var usuarios = _ServicioUsuarios.Ver_Usuarios(out errorMessage);
-            if (!string.IsNullOrEmpty(errorMessage))
-            {
-                //Manejo de errores en un label 
-                MessageBox.Show(errorMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            dgvUsuariosDB.Rows.Clear(); // Limpio la tabla antes de cargar los datos
-
-            foreach (var usuario in usuarios)
-            {
-                string rolTexto = usuario.Rol switch
-                {
-                    "0" => "Gerente",
-                    "1" => "Administrador",
-                    "2" => "Cajero",
-                    _ => "Desconocido"
-                };
-                dgvUsuariosDB.Rows.Add( 
-                    usuario.Id,
-                    usuario.Nombre,
-                    rolTexto,
-                    usuario.Secion ? "Activo" : "Inactivo",
-                    usuario.Estado ? "Empleado" : "Desempleado");
-            }
         }
 
     }
