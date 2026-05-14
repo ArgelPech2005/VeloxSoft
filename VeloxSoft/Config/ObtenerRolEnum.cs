@@ -10,6 +10,7 @@ namespace VeloxSoft.Config
         {
             return rolNumber switch
             {
+                "0" => Roles.Gerente,
                 "1" => Roles.Admin,
                 "2" => Roles.Crud,
                 _ => Roles.Lectura

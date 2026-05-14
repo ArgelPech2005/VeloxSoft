@@ -47,14 +47,13 @@
             colSesion = new DataGridViewTextBoxColumn();
             colEstado = new DataGridViewTextBoxColumn();
             pnlFormulario = new Panel();
+            ID_actual = new TextBox();
+            textRol = new ComboBox();
             btnEliminar = new Button();
             btnLimpiar = new Button();
             btnGuardar = new Button();
-            boxEstado = new ComboBox();
             lblContraseña = new Label();
             textContra = new TextBox();
-            lblEstado = new Label();
-            textRol = new TextBox();
             lblRol = new Label();
             textNombre = new TextBox();
             lblNombre = new Label();
@@ -106,7 +105,7 @@
             cbCESTADO.BackColor = Color.FromArgb(250, 254, 247);
             cbCESTADO.DropDownStyle = ComboBoxStyle.DropDownList;
             cbCESTADO.FormattingEnabled = true;
-            cbCESTADO.Items.AddRange(new object[] { "Activo", "Inactivo" });
+            cbCESTADO.Items.AddRange(new object[] { "", "Activo", "Inactivo" });
             cbCESTADO.Location = new Point(480, 82);
             cbCESTADO.Name = "cbCESTADO";
             cbCESTADO.Size = new Size(114, 28);
@@ -127,7 +126,7 @@
             cbCSESION.BackColor = Color.FromArgb(250, 254, 247);
             cbCSESION.DropDownStyle = ComboBoxStyle.DropDownList;
             cbCSESION.FormattingEnabled = true;
-            cbCSESION.Items.AddRange(new object[] { "Activo", "Inactivo" });
+            cbCSESION.Items.AddRange(new object[] { "", "Conectado", "Desconectado" });
             cbCSESION.Location = new Point(201, 82);
             cbCSESION.Name = "cbCSESION";
             cbCSESION.Size = new Size(142, 28);
@@ -148,7 +147,7 @@
             cbCROL.BackColor = Color.FromArgb(250, 254, 247);
             cbCROL.DropDownStyle = ComboBoxStyle.DropDownList;
             cbCROL.FormattingEnabled = true;
-            cbCROL.Items.AddRange(new object[] { "Activo", "Inactivo" });
+            cbCROL.Items.AddRange(new object[] { "", "Administrador", "Cajero" });
             cbCROL.Location = new Point(3, 82);
             cbCROL.Name = "cbCROL";
             cbCROL.Size = new Size(118, 28);
@@ -179,6 +178,7 @@
             btnBuscarU.Size = new Size(37, 34);
             btnBuscarU.TabIndex = 41;
             btnBuscarU.UseVisualStyleBackColor = false;
+            btnBuscarU.Click += btnBuscarU_Click;
             btnBuscarU.Paint += btnBuscarU_Paint;
             // 
             // textBuscarU
@@ -189,11 +189,10 @@
             textBuscarU.ForeColor = Color.DimGray;
             textBuscarU.Location = new Point(201, 17);
             textBuscarU.Name = "textBuscarU";
+            textBuscarU.PlaceholderText = "Eje: 9991234567";
             textBuscarU.Size = new Size(142, 32);
             textBuscarU.TabIndex = 40;
-            textBuscarU.Text = "9991234567";
-            textBuscarU.Enter += textBuscarU_Enter;
-            textBuscarU.Leave += textBuscarU_Leave;
+            textBuscarU.KeyPress += textBuscarU_KeyPress;
             // 
             // lblBuscarID
             // 
@@ -220,6 +219,7 @@
             // dgvUsuariosDB
             // 
             dgvUsuariosDB.AllowUserToAddRows = false;
+            dgvUsuariosDB.AllowUserToResizeColumns = false;
             dgvUsuariosDB.AllowUserToResizeRows = false;
             dgvUsuariosDB.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dgvUsuariosDB.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -229,11 +229,15 @@
             dgvUsuariosDB.Columns.AddRange(new DataGridViewColumn[] { colID, colNombre, colRol, colSesion, colEstado });
             dgvUsuariosDB.Location = new Point(47, 6);
             dgvUsuariosDB.Name = "dgvUsuariosDB";
+            dgvUsuariosDB.ReadOnly = true;
             dgvUsuariosDB.RowHeadersVisible = false;
             dgvUsuariosDB.RowHeadersWidth = 51;
+            dgvUsuariosDB.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvUsuariosDB.Size = new Size(725, 507);
             dgvUsuariosDB.TabIndex = 0;
             dgvUsuariosDB.CellContentClick += dgvUsuariosDB_CellContentClick;
+            dgvUsuariosDB.Click += dgvUsuariosDB_Click;
+            dgvUsuariosDB.DoubleClick += dgvUsuariosDB_DoubleClick;
             // 
             // colID
             // 
@@ -241,6 +245,7 @@
             colID.HeaderText = "ID";
             colID.MinimumWidth = 6;
             colID.Name = "colID";
+            colID.ReadOnly = true;
             colID.Width = 53;
             // 
             // colNombre
@@ -249,6 +254,7 @@
             colNombre.HeaderText = "Nombre";
             colNombre.MinimumWidth = 6;
             colNombre.Name = "colNombre";
+            colNombre.ReadOnly = true;
             colNombre.Width = 93;
             // 
             // colRol
@@ -257,6 +263,7 @@
             colRol.HeaderText = "Rol";
             colRol.MinimumWidth = 6;
             colRol.Name = "colRol";
+            colRol.ReadOnly = true;
             colRol.Width = 60;
             // 
             // colSesion
@@ -265,6 +272,7 @@
             colSesion.HeaderText = "Sesion";
             colSesion.MinimumWidth = 6;
             colSesion.Name = "colSesion";
+            colSesion.ReadOnly = true;
             colSesion.Width = 81;
             // 
             // colEstado
@@ -273,20 +281,20 @@
             colEstado.HeaderText = "Estado";
             colEstado.MinimumWidth = 6;
             colEstado.Name = "colEstado";
+            colEstado.ReadOnly = true;
             colEstado.Width = 83;
             // 
             // pnlFormulario
             // 
             pnlFormulario.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             pnlFormulario.BackColor = Color.White;
+            pnlFormulario.Controls.Add(ID_actual);
+            pnlFormulario.Controls.Add(textRol);
             pnlFormulario.Controls.Add(btnEliminar);
             pnlFormulario.Controls.Add(btnLimpiar);
             pnlFormulario.Controls.Add(btnGuardar);
-            pnlFormulario.Controls.Add(boxEstado);
             pnlFormulario.Controls.Add(lblContraseña);
             pnlFormulario.Controls.Add(textContra);
-            pnlFormulario.Controls.Add(lblEstado);
-            pnlFormulario.Controls.Add(textRol);
             pnlFormulario.Controls.Add(lblRol);
             pnlFormulario.Controls.Add(textNombre);
             pnlFormulario.Controls.Add(lblNombre);
@@ -300,6 +308,32 @@
             pnlFormulario.Paint += pnlFormulario_Paint;
             pnlFormulario.Resize += pnlFormulario_Resize;
             // 
+            // ID_actual
+            // 
+            ID_actual.BackColor = Color.FromArgb(250, 254, 247);
+            ID_actual.Enabled = false;
+            ID_actual.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ID_actual.ForeColor = Color.DimGray;
+            ID_actual.Location = new Point(99, 66);
+            ID_actual.MaxLength = 10;
+            ID_actual.Name = "ID_actual";
+            ID_actual.PlaceholderText = "ID_Actual";
+            ID_actual.Size = new Size(300, 32);
+            ID_actual.TabIndex = 52;
+            ID_actual.Visible = false;
+            // 
+            // textRol
+            // 
+            textRol.BackColor = Color.FromArgb(250, 254, 247);
+            textRol.DisplayMember = "1,2";
+            textRol.DropDownStyle = ComboBoxStyle.DropDownList;
+            textRol.FormattingEnabled = true;
+            textRol.Items.AddRange(new object[] { "Administrador", "Cajero" });
+            textRol.Location = new Point(101, 273);
+            textRol.Name = "textRol";
+            textRol.Size = new Size(118, 28);
+            textRol.TabIndex = 51;
+            // 
             // btnEliminar
             // 
             btnEliminar.BackColor = Color.FromArgb(163, 45, 45);
@@ -312,6 +346,7 @@
             btnEliminar.TabIndex = 50;
             btnEliminar.Text = "Eliminar";
             btnEliminar.UseVisualStyleBackColor = false;
+            btnEliminar.Click += btnEliminar_Click;
             btnEliminar.Paint += btnEliminar_Paint;
             // 
             // btnLimpiar
@@ -346,17 +381,6 @@
             btnGuardar.Click += btnGuardar_Click;
             btnGuardar.Paint += btnGuardar_Paint;
             // 
-            // boxEstado
-            // 
-            boxEstado.BackColor = Color.FromArgb(250, 254, 247);
-            boxEstado.DropDownStyle = ComboBoxStyle.DropDownList;
-            boxEstado.FormattingEnabled = true;
-            boxEstado.Items.AddRange(new object[] { "Activo", "Inactivo" });
-            boxEstado.Location = new Point(268, 270);
-            boxEstado.Name = "boxEstado";
-            boxEstado.Size = new Size(133, 28);
-            boxEstado.TabIndex = 47;
-            // 
             // lblContraseña
             // 
             lblContraseña.AutoSize = true;
@@ -374,36 +398,11 @@
             textContra.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             textContra.ForeColor = Color.DimGray;
             textContra.Location = new Point(103, 364);
+            textContra.MaxLength = 50;
             textContra.Name = "textContra";
+            textContra.PlaceholderText = "********";
             textContra.Size = new Size(298, 32);
             textContra.TabIndex = 45;
-            textContra.Text = "********";
-            textContra.Enter += textContra_Enter;
-            textContra.Leave += textContra_Leave;
-            // 
-            // lblEstado
-            // 
-            lblEstado.AutoSize = true;
-            lblEstado.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblEstado.ForeColor = Color.FromArgb(59, 109, 17);
-            lblEstado.Location = new Point(268, 244);
-            lblEstado.Name = "lblEstado";
-            lblEstado.Size = new Size(77, 23);
-            lblEstado.TabIndex = 44;
-            lblEstado.Text = "Estado";
-            // 
-            // textRol
-            // 
-            textRol.BackColor = Color.FromArgb(250, 254, 247);
-            textRol.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textRol.ForeColor = Color.DimGray;
-            textRol.Location = new Point(102, 270);
-            textRol.Name = "textRol";
-            textRol.Size = new Size(134, 32);
-            textRol.TabIndex = 43;
-            textRol.Text = "Rol del usuario...";
-            textRol.Enter += textRol_Enter;
-            textRol.Leave += textRol_Leave;
             // 
             // lblRol
             // 
@@ -422,12 +421,11 @@
             textNombre.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             textNombre.ForeColor = Color.DimGray;
             textNombre.Location = new Point(101, 197);
+            textNombre.MaxLength = 30;
             textNombre.Name = "textNombre";
+            textNombre.PlaceholderText = "Nombre ...";
             textNombre.Size = new Size(300, 32);
             textNombre.TabIndex = 41;
-            textNombre.Text = "Nombre cliente...";
-            textNombre.Enter += textNombre_Enter;
-            textNombre.Leave += textNombre_Leave;
             // 
             // lblNombre
             // 
@@ -446,13 +444,12 @@
             textID.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             textID.ForeColor = Color.DimGray;
             textID.Location = new Point(101, 127);
+            textID.MaxLength = 10;
             textID.Name = "textID";
+            textID.PlaceholderText = "Eje: 9991234567";
             textID.Size = new Size(300, 32);
             textID.TabIndex = 39;
-            textID.Text = "9991234567";
-            textID.TextChanged += textID_TextChanged;
-            textID.Enter += textID_Enter;
-            textID.Leave += textID_Leave;
+            textID.KeyPress += textID_KeyPress;
             // 
             // lblID
             // 
@@ -500,11 +497,8 @@
         private Panel pnlBD;
         private Panel pnlFormulario;
         private Label lblTituloForm;
-        private ComboBox boxEstado;
         private Label lblContraseña;
         private TextBox textContra;
-        private Label lblEstado;
-        private TextBox textRol;
         private Label lblRol;
         private TextBox textNombre;
         private Label lblNombre;
@@ -529,5 +523,7 @@
         private ComboBox cbCSESION;
         private Label lblCSESION;
         private ComboBox cbCROL;
+        private ComboBox textRol;
+        private TextBox ID_actual;
     }
 }

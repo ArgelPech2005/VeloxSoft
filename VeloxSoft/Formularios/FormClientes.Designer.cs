@@ -105,7 +105,7 @@
             cbColonia.Items.AddRange(new object[] { "Activo", "Inactivo" });
             cbColonia.Location = new Point(297, 50);
             cbColonia.Name = "cbColonia";
-            cbColonia.Size = new Size(142, 23);
+            cbColonia.Size = new Size(142, 28);
             cbColonia.TabIndex = 59;
             // 
             // cbTablas
@@ -116,7 +116,7 @@
             cbTablas.Items.AddRange(new object[] { "Activo", "Inactivo" });
             cbTablas.Location = new Point(67, 50);
             cbTablas.Name = "cbTablas";
-            cbTablas.Size = new Size(118, 23);
+            cbTablas.Size = new Size(118, 28);
             cbTablas.TabIndex = 57;
             // 
             // btnBuscarC
@@ -273,7 +273,7 @@
             lblDireccion.ForeColor = Color.FromArgb(59, 109, 17);
             lblDireccion.Location = new Point(82, 334);
             lblDireccion.Name = "lblDireccion";
-            lblDireccion.Size = new Size(83, 21);
+            lblDireccion.Size = new Size(101, 23);
             lblDireccion.TabIndex = 48;
             lblDireccion.Text = "Direccion";
             // 
@@ -297,7 +297,7 @@
             lblApodo.ForeColor = Color.FromArgb(59, 109, 17);
             lblApodo.Location = new Point(80, 272);
             lblApodo.Name = "lblApodo";
-            lblApodo.Size = new Size(150, 21);
+            lblApodo.Size = new Size(189, 23);
             lblApodo.TabIndex = 46;
             lblApodo.Text = "Apodo del cliente";
             // 
@@ -321,7 +321,7 @@
             lblApellido.ForeColor = Color.FromArgb(59, 109, 17);
             lblApellido.Location = new Point(78, 205);
             lblApellido.Name = "lblApellido";
-            lblApellido.Size = new Size(159, 21);
+            lblApellido.Size = new Size(202, 23);
             lblApellido.TabIndex = 44;
             lblApellido.Text = "Apellido del cliente";
             // 
@@ -345,7 +345,7 @@
             lblNombre.ForeColor = Color.FromArgb(59, 109, 17);
             lblNombre.Location = new Point(76, 141);
             lblNombre.Name = "lblNombre";
-            lblNombre.Size = new Size(158, 21);
+            lblNombre.Size = new Size(200, 23);
             lblNombre.TabIndex = 42;
             lblNombre.Text = "Nombre del cliente";
             // 
@@ -369,7 +369,7 @@
             lblNumero.ForeColor = Color.FromArgb(59, 109, 17);
             lblNumero.Location = new Point(74, 78);
             lblNumero.Name = "lblNumero";
-            lblNumero.Size = new Size(154, 21);
+            lblNumero.Size = new Size(192, 23);
             lblNumero.TabIndex = 40;
             lblNumero.Text = "Numero telefonico";
             // 
@@ -379,7 +379,7 @@
             lblTituloForm.Font = new Font("Franklin Gothic Medium Cond", 28.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblTituloForm.Location = new Point(17, 11);
             lblTituloForm.Name = "lblTituloForm";
-            lblTituloForm.Size = new Size(131, 44);
+            lblTituloForm.Size = new Size(163, 54);
             lblTituloForm.TabIndex = 0;
             lblTituloForm.Text = "Clientes";
             // 

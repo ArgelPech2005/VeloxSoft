@@ -32,6 +32,8 @@ namespace VeloxSoft.Formularios
             pnlFormulario_Resize(this, EventArgs.Empty);
             InicializarFormulariosBD();
             InicializarFiltros();
+            // Evita el efecto de "congelado" o parpadeo
+            this.DoubleBuffered = true;
             _ServicioClientes = servicioClientes;
         }
 
@@ -981,6 +983,11 @@ namespace VeloxSoft.Formularios
             {
                 MessageBox.Show($"ID: {seleccionada.Id}\nTexto: {seleccionada.Texto}");
             }
+        }
+
+        private void textNumero_TextChanged(object sender, EventArgs e)
+        {
+
         }
 
 
