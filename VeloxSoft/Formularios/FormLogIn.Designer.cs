@@ -67,8 +67,9 @@
             NavPanel.Controls.Add(pictureBox1);
             NavPanel.Controls.Add(LabelSalir);
             NavPanel.Location = new Point(0, 0);
+            NavPanel.Margin = new Padding(3, 4, 3, 4);
             NavPanel.Name = "NavPanel";
-            NavPanel.Size = new Size(292, 446);
+            NavPanel.Size = new Size(334, 595);
             NavPanel.TabIndex = 7;
             NavPanel.Paint += NavPanel_Paint;
             NavPanel.MouseDown += NavPanel_MouseDown;
@@ -76,9 +77,10 @@
             // pbViewPassword
             // 
             pbViewPassword.Image = Properties.Resources.Not_view;
-            pbViewPassword.Location = new Point(224, 267);
+            pbViewPassword.Location = new Point(256, 356);
+            pbViewPassword.Margin = new Padding(3, 4, 3, 4);
             pbViewPassword.Name = "pbViewPassword";
-            pbViewPassword.Size = new Size(32, 31);
+            pbViewPassword.Size = new Size(37, 41);
             pbViewPassword.SizeMode = PictureBoxSizeMode.StretchImage;
             pbViewPassword.TabIndex = 74;
             pbViewPassword.TabStop = false;
@@ -90,12 +92,11 @@
             TxtUsuario.BorderStyle = BorderStyle.None;
             TxtUsuario.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             TxtUsuario.ForeColor = Color.White;
-            TxtUsuario.Location = new Point(51, 201);
-            TxtUsuario.Margin = new Padding(3, 2, 3, 2);
+            TxtUsuario.Location = new Point(58, 268);
             TxtUsuario.MaxLength = 10;
             TxtUsuario.Multiline = true;
             TxtUsuario.Name = "TxtUsuario";
-            TxtUsuario.Size = new Size(205, 24);
+            TxtUsuario.Size = new Size(234, 32);
             TxtUsuario.TabIndex = 69;
             TxtUsuario.TextChanged += TxtUsuario_TextChanged;
             TxtUsuario.KeyPress += TxtUsuario_KeyPress;
@@ -105,9 +106,9 @@
             LabelError.Dock = DockStyle.Bottom;
             LabelError.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             LabelError.ForeColor = Color.Red;
-            LabelError.Location = new Point(0, 415);
+            LabelError.Location = new Point(0, 554);
             LabelError.Name = "LabelError";
-            LabelError.Size = new Size(292, 31);
+            LabelError.Size = new Size(334, 41);
             LabelError.TabIndex = 73;
             LabelError.Text = "nada";
             LabelError.TextAlign = ContentAlignment.TopCenter;
@@ -119,9 +120,9 @@
             LabelLimpiar.Cursor = Cursors.Hand;
             LabelLimpiar.Font = new Font("Century Gothic", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             LabelLimpiar.ForeColor = Color.White;
-            LabelLimpiar.Location = new Point(178, 305);
+            LabelLimpiar.Location = new Point(203, 407);
             LabelLimpiar.Name = "LabelLimpiar";
-            LabelLimpiar.Size = new Size(56, 16);
+            LabelLimpiar.Size = new Size(67, 19);
             LabelLimpiar.TabIndex = 71;
             LabelLimpiar.Text = "Limpiar";
             LabelLimpiar.Click += LabelLimpiar_Click;
@@ -132,13 +133,12 @@
             TxtPassword.BorderStyle = BorderStyle.None;
             TxtPassword.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             TxtPassword.ForeColor = Color.White;
-            TxtPassword.Location = new Point(51, 268);
-            TxtPassword.Margin = new Padding(3, 2, 3, 2);
+            TxtPassword.Location = new Point(58, 357);
             TxtPassword.MaxLength = 3000;
             TxtPassword.Multiline = true;
             TxtPassword.Name = "TxtPassword";
             TxtPassword.PasswordChar = '*';
-            TxtPassword.Size = new Size(205, 24);
+            TxtPassword.Size = new Size(234, 32);
             TxtPassword.TabIndex = 70;
             TxtPassword.TextChanged += TxtPassword_TextChanged;
             TxtPassword.KeyDown += TxtPassword_KeyDown;
@@ -150,9 +150,10 @@
             LogInButton.FlatStyle = FlatStyle.Flat;
             LogInButton.Font = new Font("Century Gothic", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             LogInButton.ForeColor = Color.White;
-            LogInButton.Location = new Point(20, 338);
+            LogInButton.Location = new Point(23, 451);
+            LogInButton.Margin = new Padding(3, 4, 3, 4);
             LogInButton.Name = "LogInButton";
-            LogInButton.Size = new Size(236, 33);
+            LogInButton.Size = new Size(270, 44);
             LogInButton.TabIndex = 68;
             LogInButton.Text = "Iniciar Sesión";
             LogInButton.UseVisualStyleBackColor = false;
@@ -161,17 +162,19 @@
             // panel3
             // 
             panel3.BackColor = Color.FromArgb(10, 80, 17);
-            panel3.Location = new Point(20, 301);
+            panel3.Location = new Point(23, 401);
+            panel3.Margin = new Padding(3, 4, 3, 4);
             panel3.Name = "panel3";
-            panel3.Size = new Size(236, 1);
+            panel3.Size = new Size(270, 1);
             panel3.TabIndex = 67;
             // 
             // PasswordIcon
             // 
             PasswordIcon.Image = Properties.Resources.PasswordVeloxen;
-            PasswordIcon.Location = new Point(20, 267);
+            PasswordIcon.Location = new Point(23, 356);
+            PasswordIcon.Margin = new Padding(3, 4, 3, 4);
             PasswordIcon.Name = "PasswordIcon";
-            PasswordIcon.Size = new Size(25, 25);
+            PasswordIcon.Size = new Size(29, 33);
             PasswordIcon.SizeMode = PictureBoxSizeMode.Zoom;
             PasswordIcon.TabIndex = 66;
             PasswordIcon.TabStop = false;
@@ -179,25 +182,28 @@
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(10, 80, 17);
-            panel2.Location = new Point(20, 230);
+            panel2.Location = new Point(23, 307);
+            panel2.Margin = new Padding(3, 4, 3, 4);
             panel2.Name = "panel2";
-            panel2.Size = new Size(236, 1);
+            panel2.Size = new Size(270, 1);
             panel2.TabIndex = 65;
             panel2.Paint += panel2_Paint;
             // 
             // panel1
             // 
-            panel1.Location = new Point(20, 226);
+            panel1.Location = new Point(23, 301);
+            panel1.Margin = new Padding(3, 4, 3, 4);
             panel1.Name = "panel1";
-            panel1.Size = new Size(236, 1);
+            panel1.Size = new Size(270, 1);
             panel1.TabIndex = 64;
             // 
             // UserIcon
             // 
             UserIcon.Image = Properties.Resources.UserVeloxen;
-            UserIcon.Location = new Point(20, 199);
+            UserIcon.Location = new Point(23, 265);
+            UserIcon.Margin = new Padding(3, 4, 3, 4);
             UserIcon.Name = "UserIcon";
-            UserIcon.Size = new Size(25, 25);
+            UserIcon.Size = new Size(29, 33);
             UserIcon.SizeMode = PictureBoxSizeMode.Zoom;
             UserIcon.TabIndex = 63;
             UserIcon.TabStop = false;
@@ -207,18 +213,19 @@
             TxtLogIn.AutoSize = true;
             TxtLogIn.Font = new Font("Franklin Gothic Medium Cond", 24F, FontStyle.Regular, GraphicsUnit.Point, 0);
             TxtLogIn.ForeColor = Color.White;
-            TxtLogIn.Location = new Point(48, 123);
+            TxtLogIn.Location = new Point(55, 164);
             TxtLogIn.Name = "TxtLogIn";
-            TxtLogIn.Size = new Size(200, 37);
+            TxtLogIn.Size = new Size(246, 47);
             TxtLogIn.TabIndex = 62;
             TxtLogIn.Text = "Inicio de sesión";
             // 
             // pictureBox1
             // 
             pictureBox1.Image = Properties.Resources.ElAmigo7__1_;
-            pictureBox1.Location = new Point(105, 44);
+            pictureBox1.Location = new Point(120, 59);
+            pictureBox1.Margin = new Padding(3, 4, 3, 4);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(87, 61);
+            pictureBox1.Size = new Size(99, 81);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 61;
             pictureBox1.TabStop = false;
@@ -229,21 +236,22 @@
             LabelSalir.Cursor = Cursors.Hand;
             LabelSalir.Font = new Font("Century Gothic", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             LabelSalir.ForeColor = Color.White;
-            LabelSalir.Location = new Point(119, 374);
+            LabelSalir.Location = new Point(136, 499);
             LabelSalir.Name = "LabelSalir";
-            LabelSalir.Size = new Size(36, 16);
+            LabelSalir.Size = new Size(42, 19);
             LabelSalir.TabIndex = 72;
             LabelSalir.Text = "Salir";
             LabelSalir.Click += LabelSalir_Click;
             // 
             // FormLogIn
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(10, 34, 17);
-            ClientSize = new Size(292, 447);
+            ClientSize = new Size(334, 596);
             Controls.Add(NavPanel);
             FormBorderStyle = FormBorderStyle.None;
+            Margin = new Padding(3, 4, 3, 4);
             Name = "FormLogIn";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Form1";

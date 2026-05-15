@@ -49,6 +49,7 @@
             colSesion = new DataGridViewTextBoxColumn();
             colEstado = new DataGridViewTextBoxColumn();
             pnlFormulario = new Panel();
+            btnViewPass = new FontAwesome.Sharp.IconButton();
             LabelError2 = new Label();
             ID_actual = new TextBox();
             textRol = new ComboBox();
@@ -307,6 +308,7 @@
             // 
             pnlFormulario.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             pnlFormulario.BackColor = Color.White;
+            pnlFormulario.Controls.Add(btnViewPass);
             pnlFormulario.Controls.Add(LabelError2);
             pnlFormulario.Controls.Add(ID_actual);
             pnlFormulario.Controls.Add(textRol);
@@ -328,12 +330,28 @@
             pnlFormulario.Paint += pnlFormulario_Paint;
             pnlFormulario.Resize += pnlFormulario_Resize;
             // 
+            // btnViewPass
+            // 
+            btnViewPass.ForeColor = Color.White;
+            btnViewPass.IconChar = FontAwesome.Sharp.IconChar.EyeLowVision;
+            btnViewPass.IconColor = Color.Black;
+            btnViewPass.IconFont = FontAwesome.Sharp.IconFont.Solid;
+            btnViewPass.IconSize = 30;
+            btnViewPass.Location = new Point(407, 363);
+            btnViewPass.Name = "btnViewPass";
+            btnViewPass.Size = new Size(41, 33);
+            btnViewPass.TabIndex = 59;
+            btnViewPass.UseVisualStyleBackColor = true;
+            btnViewPass.Click += btnViewPass_Click;
+            // 
             // LabelError2
             // 
+            LabelError2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            LabelError2.AutoSize = true;
             LabelError2.ForeColor = Color.Red;
-            LabelError2.Location = new Point(17, 400);
+            LabelError2.Location = new Point(99, 399);
             LabelError2.Name = "LabelError2";
-            LabelError2.Size = new Size(445, 21);
+            LabelError2.Size = new Size(77, 20);
             LabelError2.TabIndex = 58;
             LabelError2.Text = "LabelError";
             LabelError2.TextAlign = ContentAlignment.TopCenter;
@@ -431,6 +449,7 @@
             textContra.Location = new Point(103, 364);
             textContra.MaxLength = 50;
             textContra.Name = "textContra";
+            textContra.PasswordChar = '*';
             textContra.PlaceholderText = "********";
             textContra.Size = new Size(298, 32);
             textContra.TabIndex = 45;
@@ -557,5 +576,6 @@
         private DataGridViewTextBoxColumn colSesion;
         private DataGridViewTextBoxColumn colEstado;
         private Label LabelError2;
+        private FontAwesome.Sharp.IconButton btnViewPass;
     }
 }

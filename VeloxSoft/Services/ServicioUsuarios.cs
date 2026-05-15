@@ -80,7 +80,6 @@ namespace VeloxSoft.Services
                 cmd.CommandText = query;
                 using var reader = cmd.ExecuteReader(); 
                 var lista_usuario = new List<Usuario>();
-                MessageBox.Show(query);
                 Console.WriteLine($"ROL: {rol}");
                 Console.WriteLine($"SESION: {secion}");
                 Console.WriteLine($"ESTADO: {estado}");
@@ -207,12 +206,12 @@ namespace VeloxSoft.Services
             catch (PostgresException e)
             {
                 Console.Write(e.Message);
-                errorMessage = $"Error inesperado 2: {e.Message}";
+                errorMessage = $"Error inesperado: {e.Message}";
             }
             catch (Exception e)
             {
                 Console.Write(e.Message);
-                errorMessage = "Error inesperado 3";
+                errorMessage = "Error inesperado";
             }
         }
 

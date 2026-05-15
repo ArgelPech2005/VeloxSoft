@@ -11,6 +11,7 @@ namespace VeloxSoft.Formularios
     {
         private readonly ServicioUsuarios _ServicioUsuarios;
         private bool _modoEdicion = false;
+        private bool _MostrarContrasenia = false;
 
         // Logica de funcionamiento, no mezclar codigo de diseño con codigo de logica
         private void CargarUsuarios()
@@ -37,6 +38,25 @@ namespace VeloxSoft.Formularios
             }
         }
 
+        public void MostrarError(string mensaje)
+        {
+            LabelError2.Text = mensaje;
+            LabelError2.ForeColor = Color.Red;
+            LabelError2.Visible = true;
+        }
+
+        public void MostrarExito(string mensaje)
+        {
+            LabelError2.Text = mensaje;
+            LabelError2.ForeColor = Color.Green;
+            LabelError2.Visible = true;
+        }
+
+        public void LimpiarMensaje()
+        {
+            LabelError2.Visible = false;
+            LabelError2.Text = "";
+        }
         private void dgvUsuariosDB_Click(object sender, EventArgs e)
         {
             if (dgvUsuariosDB.SelectedRows[0].Cells[4].Value.ToString() == "Inactivo")
@@ -88,8 +108,8 @@ namespace VeloxSoft.Formularios
                 textContra.ForeColor = Color.DarkGray;
                 btnGuardar.Enabled = false;
                 btnEliminar.Enabled = false;
-                // Poner Error
-                // No es posible editar a este usuario porque su rol es igual al tuyo o está conectado.
+
+                MostrarError("No es posible editar a este usuario porque su rol es igual al tuyo o está conectado.");
             }
             else
             {
@@ -137,6 +157,8 @@ namespace VeloxSoft.Formularios
             btnEliminar.BackColor = Color.FromArgb(163, 45, 45);
             btnEliminar.Text = "Eliminar";
 
+            LimpiarMensaje();
+
             _modoEdicion = false;
         }
 
@@ -152,44 +174,36 @@ namespace VeloxSoft.Formularios
             string errorMessage = string.Empty;
             if (string.IsNullOrEmpty(textID.Text))
             {
-                MessageBox.Show("El campo ID no puede estar vacío");
                 Errores += "El campo ID no puede estar vacío.\n";
             }
             if (10 > textID.Text.Length)
             {
-                MessageBox.Show("El campo ID debe tener 10 digitos");
                 Errores += "El campo ID debe tener 10 digitos.\n";
             }
             if (string.IsNullOrEmpty(textNombre.Text))
             {
-                MessageBox.Show("El campo Nombre no puede estar vacío");
                 Errores += "El campo Nombre no puede estar vacío.\n";
             }
             if (string.IsNullOrEmpty(textRol.Text))
             {
-                MessageBox.Show("El campo Rol no puede estar vacío");
                 Errores += "El campo Rol no puede estar vacío.\n";
             }
             if (!string.IsNullOrEmpty(textContra.Text))
             {
                 if (!Regex.IsMatch(textContra.Text, @"[A-Z]"))
                 {
-                    MessageBox.Show("La contraseña debe contener al menos una letra mayúscula");
                     Errores += "La contraseña debe contener al menos una letra mayúscula.\n";
                 }
                 if (!Regex.IsMatch(textContra.Text, @"[a-z]"))
                 {
-                    MessageBox.Show("La contraseña debe contener al menos una letra minúscula");
                     Errores += "La contraseña debe contener al menos una letra minúscula.\n";
                 }
                 if (!Regex.IsMatch(textContra.Text, @"\d"))
                 {
-                    MessageBox.Show("La contraseña debe contener al menos un número");
                     Errores += "La contraseña debe contener al menos un número.\n";
                 }
                 if (textContra.Text.Length < 8)
                 {
-                    MessageBox.Show("La contraseña debe tener al menos 8 caracteres");
                     Errores += "La contraseña debe tener al menos 8 caracteres.\n";
                 }
             }
@@ -206,13 +220,9 @@ namespace VeloxSoft.Formularios
                 if (string.IsNullOrEmpty(Errores))
                 {
                     _ServicioUsuarios.Actualizar_Usuario(textID.Text, ID_actual.Text, textContra.Text, rol, true, out errorMessage);
-                    if (!string.IsNullOrEmpty(errorMessage))
+                    if (string.IsNullOrEmpty(errorMessage))
                     {
-                        // Poner Error
-                    }
-                    else
-                    {
-                        // Mostrar mensaje de éxito
+                        MostrarExito("Usuario actualizado correctamente.");
                         Limpiar();
                     }
                 }
@@ -221,26 +231,21 @@ namespace VeloxSoft.Formularios
             {
                 if (string.IsNullOrEmpty(textContra.Text))
                 {
-                    MessageBox.Show("El campo Contraseña no puede estar vacío.");
                     Errores += "El campo Contraseña no puede estar vacío.\n";
                 }
                 if (string.IsNullOrEmpty(Errores))
                 {
                     _ServicioUsuarios.Insertar_Usuario(textID.Text, textNombre.Text, rol, textContra.Text, out errorMessage);
-                    if (!string.IsNullOrEmpty(errorMessage))
+                    if (string.IsNullOrEmpty(errorMessage))
                     {
-                        // Poner Error
-                    }
-                    else
-                    {
-                        // Mostrar mensaje de éxito
+                        MostrarExito("Usuario insertado correctamente.");
                         Limpiar();
                     }
                 }
             }
             if (!string.IsNullOrEmpty(Errores) || !string.IsNullOrEmpty(errorMessage))
             {
-                // Poner Error
+                MostrarError("No se pudo guardar el usuario debido a los siguientes errores:\n" + Errores + errorMessage);
             }
 
             CargarUsuarios();
@@ -250,7 +255,7 @@ namespace VeloxSoft.Formularios
         {
             if (dgvUsuariosDB.SelectedRows.Count == 0)
             {
-                // Poner Error
+                MostrarError("Por favor, seleccione un usuario para eliminar.");
                 return;
             }
 
@@ -266,17 +271,13 @@ namespace VeloxSoft.Formularios
 
             if (rolInt <= int.Parse(Program.UsuarioLogueado.Rol))
             {
-                // Poner Error
-                // No es posible eliminar a este usuario porque su rol es igual al tuyo.
-
-                MessageBox.Show($"No es posible {btnEliminar.Text.ToString()} a este usuario porque su rol es igual al tuyo", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MostrarError("No es posible eliminar a este usuario porque su rol es igual al tuyo.");
                 return;
             }
 
             if (dgvUsuariosDB.SelectedRows[0].Cells[3].Value.ToString() == "Conectado")
             {
-                // Poner Error
-                MessageBox.Show("No es posible eliminar a este usuario porque está conectado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MostrarError("No es posible eliminar a este usuario porque está conectado.");
                 return;
             }
 
@@ -296,13 +297,13 @@ namespace VeloxSoft.Formularios
 
             if (!string.IsNullOrEmpty(errorMessage))
             {
-                // Poner Error
+                MostrarError(errorMessage);
             }
             else
             {
                 CargarUsuarios();
                 Limpiar();
-                // Mostrar mensaje de éxito
+                MostrarExito("Usuario " + (estadoBool ? "activado" : "eliminado") + " correctamente.");
             }
         }
         private void btnBuscarU_Click(object sender, EventArgs e)
@@ -455,6 +456,8 @@ namespace VeloxSoft.Formularios
             lblContraseña.Location = new Point(margenGral, yContra);
             textContra.Location = new Point(margenGral, yContra + altoLabel + 2);
             textContra.Size = new Size(anchoInput, altoInput);
+
+
 
             // --- BLOQUE DE BOTONES (SEGÚN TU DISEÑO CS) ---
             // Queremos: Guardar (Ancho completo) arriba
@@ -706,5 +709,20 @@ namespace VeloxSoft.Formularios
             CargarUsuarios();
         }
 
+        private void btnViewPass_Click(object sender, EventArgs e)
+        {
+            _MostrarContrasenia = !_MostrarContrasenia;
+
+            if (_MostrarContrasenia)
+            {
+                textContra.PasswordChar = '*';
+                btnViewPass.IconChar = FontAwesome.Sharp.IconChar.EyeLowVision;
+            }
+            else
+            {
+                textContra.PasswordChar = '\0';
+                btnViewPass.IconChar = FontAwesome.Sharp.IconChar.Eye;
+            }
+        }
     }
 }
